@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router'
+
 export default function SideBar({clicked}){
+    const router = useRouter();
     return <section>
             <h3 className='logo'>Logo</h3>
-            <h3 className={clicked === 'Home'?'active':'unActive'}>Home</h3>
-            <h3 className={clicked === 'Students'?'active':'unActive'}>Students</h3>
-            <h3 className={clicked === 'Offers'?'active':'unActive'}>Offers</h3>
+            <h3 onClick={()=>router.push('/main')} className={clicked === 'Home'?'active':'unActive'}>Home</h3>
+            <h3 onClick={()=>router.push('/Students')} className={clicked === 'Students'?'active':'unActive'}>Students</h3>
+            <h3 onClick={()=>router.push('/Offers')} className={clicked === 'Offers'?'active':'unActive'}>Offers</h3>
         <style jsx>{`
         section{
             width:190px;

@@ -1,12 +1,11 @@
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Footer from '../components/footer';
 import Header from '../components/header';
 import SideBar from '../components/SideBar';
 import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 
-export default function Main(){
+export default function Main({students}){
     const [tags, setTags] = useState([]);
     const [user,setUser] = useState({
         uid:'',
@@ -30,17 +29,7 @@ export default function Main(){
     <div className='container'>
         <SideBar clicked='Home'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags}/>
-            <div>
-                <ul>{
-                    tags.length>0?
-                    tags.map((tag,index)=>{
-                        return <li>#{tag}<span className='deleteTag' onClick={()=>deleteTag(index)}>X</span></li>
-                    })
-                    :''
-                }</ul>
-                <Profile/>
-            </div>
+            <Header setTags={setTags} tags={tags} deleteTag={deleteTag}/>
         </main>
     </div>
     <style jsx>{`
@@ -56,24 +45,6 @@ export default function Main(){
         display:flex;
         flex-direction: column;  
         flex-basis:900px;
-    }
-    ul{
-        display:flex;
-        flex-direction:row;
-    }
-    li{
-        list-style:none;
-        padding:15px 10px 15px 0;
-        color:#BABABA;
-    }
-    .deleteTag{
-        font-size: 14px;
-        cursor:pointer;
-        padding-left:5px;
-        transition: color 0.2s;
-    }
-    .deleteTag:hover{
-        color:#686868;
     }
     `}</style>
     </>

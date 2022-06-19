@@ -1,14 +1,13 @@
-export default function Profile(){
-    return <div className='profile__box'>
+import { useEffect } from 'react';
+
+export default function Profile({studentInfo}){
+    return <li className='profile__box'>
         <div className='profile__info'>
             <div className='profile__img'></div>
-            <h3 className='profile__name'>austin</h3>
-            <h3 className='profile__major'>Fronted</h3>
+            <h3 className='profile__name'>{studentInfo.name}</h3>
+            <h3 className='profile__major'>{studentInfo.major}</h3>
             <ul className='profile__tagList'>
-                <li className='profile__tagItem'>#웹페이지 제작</li>
-                <li className='profile__tagItem'>#NFT 개발</li>
-                <li className='profile__tagItem'>#NFT 개발</li>
-                <li className='profile__tagItem'>#NFT 개발</li>
+                {studentInfo.tags.map((tag,index)=><li key={index} className='profile__tagItem'>#{tag}</li>)}
             </ul>
         </div>
         <div className='button__box'>
@@ -23,9 +22,9 @@ export default function Profile(){
             border: 1px solid #EBEBED;
             box-shadow: 0px 4px 4px #F5F5F5;
             border-radius: 10px;
-            padding:14px;
             display:flex;
             flex-direction:column;
+            padding:14px;
         }
         .profile__info{
             display:flex;
@@ -91,5 +90,5 @@ export default function Profile(){
             background-color:#036EC3;
         }
         `}</style>
-    </div>
+    </li>
 }
