@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Offer({offer}){
+export default function Offer({offer,handleRouting}){
     const [open, setOpen] = useState(false);
     return<li className={`${'offer__box'} ${open?'opened':''}`} onClick={()=>setOpen(!open)}>
         <section className='main'>
@@ -11,7 +11,7 @@ export default function Offer({offer}){
                 <h3 className='title'>{offer.title}</h3>
                 {open?<div className='detail__box'>
                     <p className='detail'>{offer.body}</p>
-                    <button className='button__contact'>문의하기</button>
+                    <button className='button__contact' onClick={()=>handleRouting(offer.uid)}>문의하기</button>
                 </div>:<></>}
             </div>
             <div className='due__box'>
@@ -25,10 +25,17 @@ export default function Offer({offer}){
                 list-style:none;
                 width:100%;
                 height:75px;
-                transition:height 0.3s;
+                transition: 0.3s;
+                cursor:pointer;
+            }
+            .offer__box:hover{
+                opacity: 0.6;
             }
             .opened{
                 height:200px;
+            }
+            .opened:hover{
+                opacity:1;
             }
             .main{
                 width:100%;

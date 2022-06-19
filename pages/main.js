@@ -7,17 +7,12 @@ import Profile from '../components/Profile';
 import Offer from '../components/Offer';
 
 export default function Main({students,offers}){
-    const [tags, setTags] = useState([]);
     const [user,setUser] = useState({
         uid:'',
         name:'',
         email:''
     })
     const router = useRouter();
-    const deleteTag = (tagIndex) => {
-        const updated = [...tags.slice(0,tagIndex), ...tags.slice(tagIndex+1)];
-        setTags(updated);
-    }
     useEffect(()=>{
         setUser({
             uid:router.query.uid,
@@ -30,7 +25,7 @@ export default function Main({students,offers}){
     <div className='container'>
         <SideBar clicked='Home'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags} deleteTag={deleteTag}/>
+            <Header/>
             <div className='main__body'>
                 <section className='section-profile'>
                     <h2 className='section__title'>Profiles</h2> 
@@ -79,7 +74,7 @@ export default function Main({students,offers}){
     .main__body{
         display:flex;
         flex-direction:row;
-        gap:10px;
+        gap:20px;
     }
     section{
         margin-bottom:40px;

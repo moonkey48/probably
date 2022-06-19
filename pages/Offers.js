@@ -1,15 +1,25 @@
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import Header from '../components/header';
 import SideBar from '../components/SideBar';
 import Seo from '../components/Seo';
-import Profile from '../components/Profile';
 import Offer from '../components/Offer';
+import { useRouter } from 'next/router';
 
 export default function Offers({offers}){
     const [tags, setTags] = useState([]);
     const deleteTag = (tagIndex) => {
         const updated = [...tags.slice(0,tagIndex), ...tags.slice(tagIndex+1)];
         setTags(updated);
+    }
+    const router = useRouter();
+    const handleRouting = (key) =>{
+        const title = offers[key].title;
+        router.push({
+            pathname: `/OfferDetail/${title}`,
+            query:{
+              key
+            }
+        })
     }
     return<>
     <Seo title='Home'/>
@@ -20,7 +30,7 @@ export default function Offers({offers}){
             <div>
                 <ul className='offer-list'>
                     {Object.keys(offers).map(key=>{
-                        return <Offer key={key} offer={offers[key]} />
+                        return <Offer key={key} offer={offers[key]} handleRouting={handleRouting}/>
                     })}
                 </ul>
             </div>
