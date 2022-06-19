@@ -4,8 +4,9 @@ import Header from '../components/header';
 import SideBar from '../components/SideBar';
 import Seo from '../components/Seo';
 import Profile from '../components/Profile';
+import Offer from '../components/Offer';
 
-export default function Main({students}){
+export default function Main({students,offers}){
     const [tags, setTags] = useState([]);
     const [user,setUser] = useState({
         uid:'',
@@ -30,6 +31,24 @@ export default function Main({students}){
         <SideBar clicked='Home'/>
         <main className='main'>
             <Header setTags={setTags} tags={tags} deleteTag={deleteTag}/>
+            <div className='main__body'>
+                <section className='section-profile'>
+                    <h2 className='section__title'>Profiles</h2> 
+                    <ul className='profile-list'>
+                        {Object.keys(students).map(key=>{
+                            return <Profile key={students[key].uid} studentInfo={students[key]} />
+                        })}
+                    </ul>
+                </section>
+                <section className='section-offer'>
+                    <h2 className='section__title'>Offers</h2> 
+                    <ul className='offer-list'>
+                        {Object.keys(offers).map(key=>{
+                            return <Offer key={key} offer={offers[key]} />
+                        })}
+                    </ul>
+                </section>
+            </div>
         </main>
     </div>
     <style jsx>{`
@@ -45,6 +64,35 @@ export default function Main({students}){
         display:flex;
         flex-direction: column;  
         flex-basis:900px;
+    }
+    .profile-list{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+    .offer-list{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+    .main__body{
+        display:flex;
+        flex-direction:row;
+        gap:10px;
+    }
+    section{
+        margin-bottom:40px;
+    }
+    .section__title{
+        color: #036EC3;
+        margin-bottom:15px;
+    }
+    .section-profile{
+        flex:2;
+    }
+    .section-offer{
+        flex:5;
     }
     `}</style>
     </>

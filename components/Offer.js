@@ -52,6 +52,7 @@ export default function Offer({offer}){
                 display:flex;
                 align-items:center;
                 justify-content:center;
+                padding:0 10px;
             }
             .request{
                 color: #036EC3;
@@ -59,7 +60,7 @@ export default function Offer({offer}){
                 font-weight:500;
             }
             .title__box{
-                padding-left: 30px;
+                padding-left: 20px;
                 flex:10;
             }
             .title{
@@ -74,6 +75,7 @@ export default function Offer({offer}){
                 display:flex;
                 align-items:center;
                 justify-content:center;
+                padding:0 10px;
             }
             .due{
                 color: #686868;

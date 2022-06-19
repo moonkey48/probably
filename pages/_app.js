@@ -4,7 +4,7 @@ import '../styles/globals.css'
 function MyApp({ Component, pageProps }) {
   const [students,setStudents] = useState({
     'austin':{
-      uid:'testUid',
+      uid:'testUid1',
       name:'문승의',
       major:'Front-end',
       email:'21500242@handong.edu',
@@ -20,13 +20,21 @@ function MyApp({ Component, pageProps }) {
       profileImg:'',
     },
     'sevendays':{
-      uid:'testUid2',
+      uid:'testUid3',
       name:'박이레',
       major:'시각디자인',
       email:'2150000@handong.edu',
       tags: ['시각디자인','제품디자인','앱디자인'],
       profileImg:'',
-    }
+    },
+    'moonkey':{
+      uid:'testUid4',
+      name:'Moonkey',
+      major:'제품디자인',
+      email:'2150242@handong.edu',
+      tags: ['디자인','개발'],
+      profileImg:'',
+    },
   });
   const [offers, setOffers] = useState({
     'req1':{

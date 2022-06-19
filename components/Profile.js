@@ -16,7 +16,9 @@ export default function Profile({studentInfo}){
         </div>
         <style jsx>{`
         .profile__box{
-            width:220px;
+            flex-basis:220px;
+            flex-grow:1;
+            flex-shrink:1;
             height:300px;
             background: #FFFFFF;
             border: 1px solid #EBEBED;
