@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function Offers(){
+export default function Offers({database}){
     const router = useRouter();
     const titleRef = useRef();
     const bodyRef = useRef();
@@ -16,7 +16,7 @@ export default function Offers(){
     const handleSubmit = (e) =>{
         e.preventDefault();
         const newOffer = {
-                uid: 'somthingnew',
+                id: Date.now(),
                 request: '외주',
                 title: titleRef.current.value,
                 body: bodyRef.current.value,
@@ -26,7 +26,8 @@ export default function Offers(){
                 preferential: preferRef.current.value,
                 contact: contactRef.current.value,
         }
-        console.log(newOffer);
+        database.setOffer(newOffer.id,newOffer);
+        router.back();
     }
 
     return<>
@@ -174,6 +175,7 @@ export default function Offers(){
         color: #686868;
         border:none;
         background:none;
+        width:100%;
     }
     input::placeholder{
         font-size: 16px;

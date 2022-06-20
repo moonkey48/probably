@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import '../styles/globals.css'
+import {firebaseApp} from '../service/firebaseApp';
+import Database from '../service/database';
+
+const database = new Database(firebaseApp);
 
 function MyApp({ Component, pageProps }) {
   const [students,setStudents] = useState({
@@ -89,7 +93,8 @@ function MyApp({ Component, pageProps }) {
   })
   return <Component {...pageProps} 
   students={students} 
-  offers={offers}  />
+  offers={offers} 
+  database={database} />
 }
 
 export default MyApp

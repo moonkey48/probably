@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import styles from '../styles/Home.module.css'
 import Firebase from '../service/firebase';
-import firebase from '../service/firebaseApp';
 import { useRouter } from 'next/router';
 import Seo from '../components/Seo';
+import {firebaseApp} from '../service/firebaseApp';
 
 
-const fireBaseApp = new Firebase(firebase);
+
+const fireBaseApp = new Firebase(firebaseApp);
 
 export default function Home() {
   const router = useRouter();
