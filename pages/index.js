@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import styles from '../styles/Home.module.css'
-import Firebase from '../service/firebase';
 import { useRouter } from 'next/router';
 import Seo from '../components/Seo';
+import Firebase from '../service/firebase';
 import {firebaseApp} from '../service/firebaseApp';
-
-
 
 const fireBaseApp = new Firebase(firebaseApp);
 
-export default function Home() {
+export default function Home({database,setOffers,setStudents}) {
   const router = useRouter();
-  const [welcomeText, setWelcomeText] = useState('Hello Pro');
+  const [welcomeText, setWelcomeText] = useState('Hello Pro 😎');
   const handleLogin = async() =>{
     await fireBaseApp.login((result)=>{
       if(!result){
@@ -28,6 +26,10 @@ export default function Home() {
       })
     })
   }
+  useEffect(()=>{
+    database.syncOffers((data)=>setOffers(data));
+    // database.syncProfiles((data)=>setStudents(data));
+  },[]);
   return (
     <div className={styles.container}>
       <Seo title='login' />

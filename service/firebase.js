@@ -13,5 +13,8 @@ class Firebase{
             resultFunc(false);
           });
     }
+    logout(){
+      this.auth.signOut();
+    }
 }
 export default Firebase;

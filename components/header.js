@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export default function Header({setTags, tags,deleteTag}){
+export default function Header({setTags, tags, deleteTag}){
     const inputRef = useRef();
     const formRef = useRef();
     const handleSearch = (e) =>{

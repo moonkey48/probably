@@ -6,7 +6,7 @@ import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 import Offer from '../components/Offer';
 
-export default function Main({students,offers,database,setOffers}){
+export default function Main({students,offers}){
     const [user,setUser] = useState({
         uid:'',
         name:'',
@@ -32,7 +32,6 @@ export default function Main({students,offers,database,setOffers}){
         })
     }
     useEffect(()=>{
-        database.syncOffers((data)=>setOffers(data));
         setUser({
             uid:router.query.uid,
             name:router.query.name,

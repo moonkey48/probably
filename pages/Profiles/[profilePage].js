@@ -9,9 +9,9 @@ export default function ProfilePage({students}){
     const router = useRouter();
     const key = router.query.key;
     return <>
-        <Seo title='Offer'/>
+        <Seo title='Profiles'/>
         <div className='container'>
-            <SideBar clicked='Offers'/>
+            <SideBar clicked='Students'/>
             <main className='main'>
                 <Header/>
                 <div>
@@ -27,12 +27,12 @@ export default function ProfilePage({students}){
                 <div className='profileBox'>
                     <section className='profile-left'>
                         <div className='profile__img'></div>
-                        <h3 className='profile__name'>{students[key].name}</h3>
-                        <h3 className='profile__major'>{students[key].major}</h3>
-                        <div className='profile__about'>{students[key].about}</div>
+                        <h3 className='profile__name'>{ students[key].name && students[key].name }</h3>
+                        <h3 className='profile__major'>{students[key].major && students[key].major}</h3>
+                        <div className='profile__about'>{students[key].about && students[key].about}</div>
                         <ul className='profile__tags'>
                         {
-                            students[key].tags.map((tag,index)=>{
+                            students[key].tags && Object.keys(students[key].tags).map((tag,index)=>{
                                 return <li key={index}>#{tag}</li>
                             })
                         }
@@ -43,7 +43,7 @@ export default function ProfilePage({students}){
                             <h3 className='part'>가능 분야</h3>
                             <ul className='profile__ability'>
                             {
-                                students[key].abilities.map((ability,index)=>{
+                                students[key].abilities && Object.keys(students[key].abilities).map((ability,index)=>{
                                     return <li className='part-desc' key={index}>{ability}</li>
                                 })
                             }
@@ -51,15 +51,15 @@ export default function ProfilePage({students}){
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
-                            <p className='part-desc'>{students[key].experience}</p>
+                            <p className='part-desc'>{students[key].experience && students[key].experience}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>개인 페이지</h3>
-                            <p className='part-desc'>{students[key].homepage}</p>
+                            <p className='part-desc'>{students[key].homepage && students[key].homepage}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>이메일</h3>
-                            <p className='part-desc'>{students[key].email}</p>
+                            <p className='part-desc'>{students[key].email && students[key].email}</p>
                         </div>
                     </section>
                 </div>

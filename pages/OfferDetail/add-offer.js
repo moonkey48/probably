@@ -18,13 +18,13 @@ export default function Offers({database}){
         const newOffer = {
                 id: Date.now(),
                 request: '외주',
-                title: titleRef.current.value,
-                body: bodyRef.current.value,
-                due: dueRef.current.value,
+                title: titleRef.current.value || '-',
+                body: bodyRef.current.value || '-',
+                due: dueRef.current.value || '-',
                 deadline: false,
-                requirement: conditionRef.current.value,
-                preferential: preferRef.current.value,
-                contact: contactRef.current.value,
+                requirement: conditionRef.current.value || '-',
+                preferential: preferRef.current.value || '-',
+                contact: contactRef.current.value || '-',
         }
         database.setOffer(newOffer.id,newOffer);
         router.back();

@@ -3,12 +3,23 @@ import Header from '../components/header';
 import SideBar from '../components/SideBar';
 import Seo from '../components/Seo';
 import Profile from '../components/Profile';
+import { useRouter } from 'next/router';
 
 export default function Students({students}){
+    const router = useRouter();
     const [tags, setTags] = useState([]);
     const deleteTag = (tagIndex) => {
         const updated = [...tags.slice(0,tagIndex), ...tags.slice(tagIndex+1)];
         setTags(updated);
+    }
+    const handleProfileRouting = (key) =>{
+        const uid = students[key].uid;
+        router.push({
+            pathname: `/Profiles/${uid}`,
+            query:{
+              key
+            }
+        })
     }
     return<>
     <Seo title='Home'/>
@@ -19,7 +30,11 @@ export default function Students({students}){
             <div>
                 <ul className='profile-list'>
                     {Object.keys(students).map(key=>{
-                        return <Profile key={students[key].uid} studentInfo={students[key]} />
+                        return <Profile  
+                        key={students[key].uid} 
+                        studentInfo={students[key]} 
+                        handleRouting={handleProfileRouting}
+                        />
                     })}
                 </ul>
             </div>

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import '../styles/globals.css'
-import {firebaseApp} from '../service/firebaseApp';
 import Database from '../service/database';
+import Firebase from '../service/firebase';
+import {firebaseApp} from '../service/firebaseApp';
 
 const database = new Database(firebaseApp);
+
 
 function MyApp({ Component, pageProps }) {
   const [students,setStudents] = useState({
@@ -13,8 +15,8 @@ function MyApp({ Component, pageProps }) {
       about:'매일 성장하는 개발자 문승의입니다.',
       major:'Front-end',
       email:'21500242@handong.edu',
-      tags: ['웹 개발', '프론트엔드 개발','웹디자인'],
-      abilities:['웹페이지 개발, 앱 디자인, 앱 개발'],
+      tags: {},
+      abilities: {},
       experience:'',
       profileImg:'',
       homepage:'',
@@ -25,8 +27,8 @@ function MyApp({ Component, pageProps }) {
       about:'매일 성장하는 디자이너 정지선입니다.',
       major:'UX/UI 디자인',
       email:'2180000@handong.edu',
-      tags: ['UX', 'UI','웹디자인','앱디자인'],
-      abilities:['프로토타입 디자인, 프로토파이'],
+      tags: {},
+      abilities: {},
       experience:'',
       profileImg:'',
       homepage:'',
@@ -37,8 +39,8 @@ function MyApp({ Component, pageProps }) {
       about:'매일 성장하는 디자이너 박이레입니다.',
       major:'시각디자인',
       email:'2150000@handong.edu',
-      tags: ['시각디자인','제품디자인','앱디자인'],
-      abilities:['배너디자인, 포스터 디자인'],
+      tags: {},
+      abilities: {},
       experience:'',
       profileImg:'',
       homepage:'',
@@ -49,8 +51,8 @@ function MyApp({ Component, pageProps }) {
       about:'매일 성장하는 모델러 문키입니다.',
       major:'제품디자인',
       email:'2150242@handong.edu',
-      tags: ['디자인','개발'],
-      abilities:['3D 모델링'],
+      tags: {},
+      abilities: {},
       experience:'',
       profileImg:'',
       homepage:'',

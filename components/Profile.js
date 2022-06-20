@@ -7,12 +7,11 @@ export default function Profile({studentInfo,handleRouting}){
             <h3 className='profile__name'>{studentInfo.name}</h3>
             <h3 className='profile__major'>{studentInfo.major}</h3>
             <ul className='profile__tagList'>
-                {studentInfo.tags.map((tag,index)=><li key={index} className='profile__tagItem'>#{tag}</li>)}
+                { studentInfo.tags && Object.keys(studentInfo.tags).map((tag,index)=><li key={index} className='profile__tagItem'>#{tag}</li>)}
             </ul>
         </div>
         <div className='button__box'>
-            <button className='button__profile'>프로필보기</button>
-            <button className='button__contact' onClick={()=>handleRouting(studentInfo.uid)}>문의하기</button>
+            <button className='button__contact' onClick={()=>handleRouting(studentInfo.uid)}>프로필보기</button>
         </div>
         <style jsx>{`
         .profile__box{
@@ -65,6 +64,7 @@ export default function Profile({studentInfo,handleRouting}){
             flex-direction: row;
             justify-content: center;
             gap: 5px;
+            padding:10px 0;
         }
         button{
             width:100px;
