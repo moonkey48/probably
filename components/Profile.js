@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function Profile({studentInfo}){
+export default function Profile({studentInfo,handleRouting}){
     return <li className='profile__box'>
         <div className='profile__info'>
             <div className='profile__img'></div>
@@ -12,7 +12,7 @@ export default function Profile({studentInfo}){
         </div>
         <div className='button__box'>
             <button className='button__profile'>프로필보기</button>
-            <button className='button__contact'>문의하기</button>
+            <button className='button__contact' onClick={()=>handleRouting(studentInfo.uid)}>문의하기</button>
         </div>
         <style jsx>{`
         .profile__box{

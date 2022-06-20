@@ -63,7 +63,7 @@ export default function Offer({offer,handleRouting}){
             }
             .request{
                 color: #036EC3;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight:500;
             }
             .title__box{
@@ -72,7 +72,7 @@ export default function Offer({offer,handleRouting}){
             }
             .title{
                 color: #686868;
-                font-size: 20px;
+                font-size: 16px;
                 font-weight:500;
             }
             .due__box{
@@ -86,7 +86,7 @@ export default function Offer({offer,handleRouting}){
             }
             .due{
                 color: #686868;
-                font-size: 16px;
+                font-size: 14px;
                 font-weight:500;
                 text-align: right;
             }
@@ -95,7 +95,7 @@ export default function Offer({offer,handleRouting}){
             }
             .detail{
                 font-weight: 500;
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 23px;
                 color: #686868;
                 padding:20px 0;

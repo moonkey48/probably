@@ -94,6 +94,7 @@ export default function OfferDetail({offers}){
                 }
                 .title{
                     font-size: 20px;
+                    color: #686868;
                 }
                 h3{
                     font-weight: 500;

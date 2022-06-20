@@ -13,6 +13,24 @@ export default function Main({students,offers}){
         email:''
     })
     const router = useRouter();
+    const handleOfferRouting = (key) =>{
+        const title = offers[key].title;
+        router.push({
+            pathname: `/OfferDetail/${title}`,
+            query:{
+              key
+            }
+        })
+    }
+    const handleProfileRouting = (key) =>{
+        const uid = students[key].uid;
+        router.push({
+            pathname: `/Profiles/${uid}`,
+            query:{
+              key
+            }
+        })
+    }
     useEffect(()=>{
         setUser({
             uid:router.query.uid,
@@ -31,7 +49,7 @@ export default function Main({students,offers}){
                     <h2 className='section__title'>Profiles</h2> 
                     <ul className='profile-list'>
                         {Object.keys(students).map(key=>{
-                            return <Profile key={students[key].uid} studentInfo={students[key]} />
+                            return <Profile key={students[key].uid} studentInfo={students[key]} handleRouting={handleProfileRouting}/>
                         })}
                     </ul>
                 </section>
@@ -39,7 +57,7 @@ export default function Main({students,offers}){
                     <h2 className='section__title'>Offers</h2> 
                     <ul className='offer-list'>
                         {Object.keys(offers).map(key=>{
-                            return <Offer key={key} offer={offers[key]} />
+                            return <Offer key={key} offer={offers[key]} handleRouting={handleOfferRouting} />
                         })}
                     </ul>
                 </section>

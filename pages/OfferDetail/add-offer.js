@@ -82,7 +82,7 @@ export default function Offers(){
                     </li>
                 </ul>
                 <div className='bottomBox'>
-                    <button className='button-cancel'>작성 취소</button>
+                    <button className='button-cancel' onClick={()=>router.back()}>작성 취소</button>
                     <button className='button-register' onClick={(e)=>handleSubmit(e)} >등록하기</button>
                 </div>
             </section>

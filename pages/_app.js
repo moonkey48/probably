@@ -3,37 +3,53 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
   const [students,setStudents] = useState({
-    'austin':{
+    'testUid1':{
       uid:'testUid1',
       name:'문승의',
+      about:'매일 성장하는 개발자 문승의입니다.',
       major:'Front-end',
       email:'21500242@handong.edu',
       tags: ['웹 개발', '프론트엔드 개발','웹디자인'],
+      abilities:['웹페이지 개발, 앱 디자인, 앱 개발'],
+      experience:'',
       profileImg:'',
+      homepage:'',
     },
-    'lizzy':{
+    'testUid2':{
       uid:'testUid2',
       name:'정지선',
+      about:'매일 성장하는 디자이너 정지선입니다.',
       major:'UX/UI 디자인',
       email:'2180000@handong.edu',
       tags: ['UX', 'UI','웹디자인','앱디자인'],
+      abilities:['프로토타입 디자인, 프로토파이'],
+      experience:'',
       profileImg:'',
+      homepage:'',
     },
-    'sevendays':{
+    'testUid3':{
       uid:'testUid3',
       name:'박이레',
+      about:'매일 성장하는 디자이너 박이레입니다.',
       major:'시각디자인',
       email:'2150000@handong.edu',
       tags: ['시각디자인','제품디자인','앱디자인'],
+      abilities:['배너디자인, 포스터 디자인'],
+      experience:'',
       profileImg:'',
+      homepage:'',
     },
-    'moonkey':{
+    'testUid4':{
       uid:'testUid4',
       name:'Moonkey',
+      about:'매일 성장하는 모델러 문키입니다.',
       major:'제품디자인',
       email:'2150242@handong.edu',
       tags: ['디자인','개발'],
+      abilities:['3D 모델링'],
+      experience:'',
       profileImg:'',
+      homepage:'',
     },
   });
   const [offers, setOffers] = useState({
