@@ -6,7 +6,7 @@ import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 import Offer from '../components/Offer';
 
-export default function Main({students,offers}){
+export default function Main({students,offers,database,setOffers}){
     const [user,setUser] = useState({
         uid:'',
         name:'',
@@ -32,6 +32,7 @@ export default function Main({students,offers}){
         })
     }
     useEffect(()=>{
+        database.syncOffers((data)=>setOffers(data));
         setUser({
             uid:router.query.uid,
             name:router.query.name,
@@ -49,7 +50,7 @@ export default function Main({students,offers}){
                     <h2 className='section__title'>Profiles</h2> 
                     <ul className='profile-list'>
                         {Object.keys(students).map(key=>{
-                            return <Profile key={students[key].uid} studentInfo={students[key]} handleRouting={handleProfileRouting}/>
+                            return <Profile key={students[key].uid} studentInfo={students[key]} handleRouting={()=>handleProfileRouting(key)}/>
                         })}
                     </ul>
                 </section>
@@ -57,7 +58,7 @@ export default function Main({students,offers}){
                     <h2 className='section__title'>Offers</h2> 
                     <ul className='offer-list'>
                         {Object.keys(offers).map(key=>{
-                            return <Offer key={key} offer={offers[key]} handleRouting={handleOfferRouting} />
+                            return <Offer key={key} offer={offers[key]} handleRouting={()=>handleOfferRouting(key)} />
                         })}
                     </ul>
                 </section>

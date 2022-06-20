@@ -43,7 +43,7 @@ export default function Offers({offers}){
             <div>
                 <ul className='offer-list'>
                     {Object.keys(offers).map(key=>{
-                        return <Offer key={key} offer={offers[key]} handleRouting={handleRouting}/>
+                        return <Offer key={key} offer={offers[key]} handleRouting={()=>handleRouting(key)}/>
                     })}
                 </ul>
             </div>

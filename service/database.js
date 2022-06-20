@@ -1,4 +1,4 @@
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, onValue, off } from "firebase/database";
 
 class Database{
     database;
@@ -31,6 +31,21 @@ class Database{
             preferential: data.preferential,
             contact: data.contact, 
         });
+    }
+    syncProfiles(updateProfiles){
+        const refProfiles = ref(this.database, '/profiles');
+        onValue(refProfiles, (snapshot) => {
+            const data = snapshot.val();
+            updateProfiles(data);
+        })
+        return ()=>off(refProfiles);
+    }
+    syncOffers(updateOffers){
+        const refOffers = ref(this.database, '/offers');
+        onValue(refOffers, (snapshot)=>{
+            const data = snapshot.val();
+            updateOffers(data);
+        })
     }
 
 }

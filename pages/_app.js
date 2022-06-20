@@ -93,6 +93,8 @@ function MyApp({ Component, pageProps }) {
   })
   return <Component {...pageProps} 
   students={students} 
+  setStudents={setStudents}
+  setOffers={setOffers}
   offers={offers} 
   database={database} />
 }
