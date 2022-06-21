@@ -7,7 +7,7 @@ export default function Profile({studentInfo,handleRouting}){
             <h3 className='profile__name'>{studentInfo.name}</h3>
             <h3 className='profile__major'>{studentInfo.major}</h3>
             <ul className='profile__tagList'>
-                { studentInfo.tags && Object.keys(studentInfo.tags).map((tag,index)=><li key={index} className='profile__tagItem'>#{tag}</li>)}
+                { studentInfo.tags && Object.keys(studentInfo.tags).map((tag,index)=><li key={index} className='profile__tagItem'>#{studentInfo.tags[tag]}</li>)}
             </ul>
         </div>
         <div className='button__box'>

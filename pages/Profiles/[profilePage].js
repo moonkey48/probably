@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
 import Header from '../../components/header';
-import Profile from '../../components/Profile';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
 export default function ProfilePage({students}){
     const router = useRouter();
     const key = router.query.key;
+    const studentInfo = students[key];
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -27,13 +26,13 @@ export default function ProfilePage({students}){
                 <div className='profileBox'>
                     <section className='profile-left'>
                         <div className='profile__img'></div>
-                        <h3 className='profile__name'>{ students[key].name && students[key].name }</h3>
-                        <h3 className='profile__major'>{students[key].major && students[key].major}</h3>
-                        <div className='profile__about'>{students[key].about && students[key].about}</div>
+                        <h3 className='profile__name'>{ studentInfo.name && studentInfo.name }</h3>
+                        <h3 className='profile__major'>{studentInfo.major && studentInfo.major}</h3>
+                        <div className='profile__about'>{studentInfo.about && studentInfo.about}</div>
                         <ul className='profile__tags'>
                         {
-                            students[key].tags && Object.keys(students[key].tags).map((tag,index)=>{
-                                return <li key={index}>#{tag}</li>
+                            studentInfo.tags && Object.keys(studentInfo.tags).map((tag,index)=>{
+                                return <li key={index}>#{studentInfo.tags[tag]}</li>
                             })
                         }
                         </ul>
@@ -43,23 +42,23 @@ export default function ProfilePage({students}){
                             <h3 className='part'>가능 분야</h3>
                             <ul className='profile__ability'>
                             {
-                                students[key].abilities && Object.keys(students[key].abilities).map((ability,index)=>{
-                                    return <li className='part-desc' key={index}>{ability}</li>
+                                studentInfo.abilities && Object.keys(studentInfo.abilities).map((ability,index)=>{
+                                    return <li className='part-desc' key={index}>{studentInfo.abilities[ability]},</li>
                                 })
                             }
                             </ul>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
-                            <p className='part-desc'>{students[key].experience && students[key].experience}</p>
+                            <p className='part-desc'>{studentInfo.experience && studentInfo.experience}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>개인 페이지</h3>
-                            <p className='part-desc'>{students[key].homepage && students[key].homepage}</p>
+                            <p className='part-desc'>{studentInfo.homepage && studentInfo.homepage}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>이메일</h3>
-                            <p className='part-desc'>{students[key].email && students[key].email}</p>
+                            <p className='part-desc'>{studentInfo.email && studentInfo.email}</p>
                         </div>
                     </section>
                 </div>
@@ -87,6 +86,13 @@ export default function ProfilePage({students}){
                     flex-direction: row;
                     flex-wrap: wrap;
                     gap:4px;
+                }
+                .profile__ability{
+                    font-size:12px;
+                    display:flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap:10px;
                 }
                 .profile__about{
                     font-weight: 500;

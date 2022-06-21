@@ -7,7 +7,7 @@ import {firebaseApp} from '../service/firebaseApp';
 
 const fireBaseApp = new Firebase(firebaseApp);
 
-export default function Home({database,setOffers,setStudents}) {
+export default function Home({database,setOffers,handleProfileDB}) {
   const router = useRouter();
   const [welcomeText, setWelcomeText] = useState('Hello Pro 😎');
   const handleLogin = async() =>{
@@ -28,7 +28,9 @@ export default function Home({database,setOffers,setStudents}) {
   }
   useEffect(()=>{
     database.syncOffers((data)=>setOffers(data));
-    // database.syncProfiles((data)=>setStudents(data));
+    database.syncProfiles((data)=>{
+      handleProfileDB(data);
+    });
   },[]);
   return (
     <div className={styles.container}>

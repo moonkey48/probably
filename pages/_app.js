@@ -92,10 +92,28 @@ function MyApp({ Component, pageProps }) {
       preferential:'',
       contact:'gimpact@handong.edu',
     }
-  })
+  });
+  const handleProfileDB = (data) =>{
+    setStudents(Object.keys(data).map((profile)=>{
+      const newStudent = {
+        uid:data[profile].uid,
+        name: data[profile].name,
+        about:data[profile].about,
+        major:data[profile].major,
+        email:data[profile].email,
+        tags: data[profile].tags,
+        abilities: data[profile].abilities,
+        experience: data[profile].experience,
+        profileImg: data[profile].profileImg,
+        homepage: data[profile].homepage,
+      }
+      console.log(newStudent);
+      return newStudent;
+    }));
+  }
   return <Component {...pageProps} 
   students={students} 
-  setStudents={setStudents}
+  handleProfileDB={handleProfileDB}
   setOffers={setOffers}
   offers={offers} 
   database={database} />
