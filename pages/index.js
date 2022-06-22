@@ -2,35 +2,54 @@ import { useState,useEffect } from 'react';
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router';
 import Seo from '../components/Seo';
-import Firebase from '../service/firebase';
-import {firebaseApp} from '../service/firebaseApp';
 
-const fireBaseApp = new Firebase(firebaseApp);
-
-export default function Home({database,setOffers,handleProfileDB}) {
+export default function Home({fireBaseApp, database, setOffers,handleProfileDB,students,updateOrCreateProfile}) {
   const router = useRouter();
   const [welcomeText, setWelcomeText] = useState('Hello Pro 😎');
   const handleLogin = async() =>{
     await fireBaseApp.login((result)=>{
       if(!result){
-        setWelcomeText('로그인에 문제가 생겼습니다. 다른 계정으로 로그인해주세요.')
+        setWelcomeText('로그인에 문제가 생겼습니다. 다시 시도해주세요')
         return;
       }
+      if(!students[result.uid]){
+        console.log('new user');
+        const newStudent = {
+          uid:result.uid,
+          name: result.name,
+          about: '-',
+          major: '-',
+          email:result.email,
+          tags: {},
+          abilities: {},
+          experience: '-',
+          profileImg: '-',
+          homepage: '-',
+        }
+        updateOrCreateProfile(newStudent.uid, newStudent);
+        database.setProfile(result.uid, newStudent);
+      }
+
+      console.log(`${result.uid} login success`);
       router.push({
         pathname: '/main',
         query:{
           uid:result.uid,
-          name:result.name,
-          email:result.email
         }
       })
     })
   }
   useEffect(()=>{
-    database.syncOffers((data)=>setOffers(data));
-    database.syncProfiles((data)=>{
+    const stopSyncOfferDB = database.syncOffers((data)=>setOffers(data));
+    const stopSyncProfileDB = database.syncProfiles((data)=>{
       handleProfileDB(data);
     });
+    return ()=>{
+      console.log(students);
+      stopSyncOfferDB();
+      stopSyncProfileDB();
+      console.log('sync stoped');
+    }
   },[]);
   return (
     <div className={styles.container}>

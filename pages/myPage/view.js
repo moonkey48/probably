@@ -3,11 +3,11 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function ProfilePage({students}){
+export default function myPageView({students}){
     const router = useRouter();
-    const key = router.query.key;
-    const studentInfo = students[key];
-    console.log(router);
+    const key = router.query.userId;
+    const myInfo = students[key];
+    console.log(myInfo);
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -27,13 +27,13 @@ export default function ProfilePage({students}){
                 <div className='profileBox'>
                     <section className='profile-left'>
                         <div className='profile__img'></div>
-                        <h3 className='profile__name'>{ studentInfo?.name && studentInfo.name }</h3>
-                        <h3 className='profile__major'>{studentInfo?.major && studentInfo.major}</h3>
-                        <div className='profile__about'>{studentInfo?.about && studentInfo.about}</div>
+                        <h3 className='profile__name'>{ myInfo?.name && myInfo.name }</h3>
+                        <h3 className='profile__major'>{myInfo?.major && myInfo.major}</h3>
+                        <div className='profile__about'>{myInfo?.about && myInfo.about}</div>
                         <ul className='profile__tags'>
                         {
-                            studentInfo?.tags && Object.keys(studentInfo.tags).map((tag,index)=>{
-                                return <li key={index}>#{studentInfo.tags[tag]}</li>
+                            myInfo?.tags && Object.keys(myInfo.tags).map((tag,index)=>{
+                                return <li key={index}>#{myInfo.tags[tag]}</li>
                             })
                         }
                         </ul>
@@ -43,23 +43,23 @@ export default function ProfilePage({students}){
                             <h3 className='part'>가능 분야</h3>
                             <ul className='profile__ability'>
                             {
-                                studentInfo?.abilities && Object.keys(studentInfo.abilities).map((ability,index)=>{
-                                    return <li className='part-desc' key={index}>{studentInfo.abilities[ability]},</li>
+                                myInfo?.abilities && Object.keys(myInfo.abilities).map((ability,index)=>{
+                                    return <li className='part-desc' key={index}>{myInfo.abilities[ability]},</li>
                                 })
                             }
                             </ul>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
-                            <p className='part-desc'>{studentInfo?.experience && studentInfo.experience}</p>
+                            <p className='part-desc'>{myInfo?.experience && myInfo.experience}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>개인 페이지</h3>
-                            <p className='part-desc'>{studentInfo?.homepage && studentInfo.homepage}</p>
+                            <p className='part-desc'>{myInfo?.homepage && myInfo.homepage}</p>
                         </div>
                         <div className='right-section__item'>
                             <h3 className='part'>이메일</h3>
-                            <p className='part-desc'>{studentInfo?.email && studentInfo.email}</p>
+                            <p className='part-desc'>{myInfo?.email && myInfo.email}</p>
                         </div>
                     </section>
                 </div>

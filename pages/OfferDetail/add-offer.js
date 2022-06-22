@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function Offers({database}){
+export default function Offers({database,addOrCreateOffer}){
     const router = useRouter();
     const titleRef = useRef();
     const bodyRef = useRef();
@@ -26,7 +26,9 @@ export default function Offers({database}){
                 preferential: preferRef.current.value || '-',
                 contact: contactRef.current.value || '-',
         }
+        
         database.setOffer(newOffer.id,newOffer);
+        addOrCreateOffer(newOffer.id, newOffer);
         router.back();
     }
 

@@ -4,8 +4,9 @@ import Database from '../service/database';
 import Firebase from '../service/firebase';
 import {firebaseApp} from '../service/firebaseApp';
 
-const database = new Database(firebaseApp);
 
+const database = new Database(firebaseApp);
+const fireBaseApp = new Firebase(firebaseApp);
 
 function MyApp({ Component, pageProps }) {
   const [students,setStudents] = useState({
@@ -15,42 +16,6 @@ function MyApp({ Component, pageProps }) {
       about:'매일 성장하는 개발자 문승의입니다.',
       major:'Front-end',
       email:'21500242@handong.edu',
-      tags: {},
-      abilities: {},
-      experience:'',
-      profileImg:'',
-      homepage:'',
-    },
-    'testUid2':{
-      uid:'testUid2',
-      name:'정지선',
-      about:'매일 성장하는 디자이너 정지선입니다.',
-      major:'UX/UI 디자인',
-      email:'2180000@handong.edu',
-      tags: {},
-      abilities: {},
-      experience:'',
-      profileImg:'',
-      homepage:'',
-    },
-    'testUid3':{
-      uid:'testUid3',
-      name:'박이레',
-      about:'매일 성장하는 디자이너 박이레입니다.',
-      major:'시각디자인',
-      email:'2150000@handong.edu',
-      tags: {},
-      abilities: {},
-      experience:'',
-      profileImg:'',
-      homepage:'',
-    },
-    'testUid4':{
-      uid:'testUid4',
-      name:'Moonkey',
-      about:'매일 성장하는 모델러 문키입니다.',
-      major:'제품디자인',
-      email:'2150242@handong.edu',
       tags: {},
       abilities: {},
       experience:'',
@@ -70,53 +35,47 @@ function MyApp({ Component, pageProps }) {
       preferential:'',
       contact:'handong_church@handong.edu',
     },
-    'req2':{
-      uid:'req2',
-      request: '구인',
-      title: 'IIID 디자이너 구합니다.',
-      body: '국제 개발 협력대학원 디자이너 구합니다.',
-      due: '7/2',
-      deadline:false,
-      requirement:'',
-      preferential:'',
-      contact:'IIID@handong.edu',
-    },
-    'req3':{
-      uid:'req3',
-      request: '구인',
-      title: 'G-implact 프로젝트 매니저 구합니다.',
-      body: 'G-impact를 리드해주실 프로젝트 매니저를 구합니다. ',
-      due: '7/13',
-      deadline:false,
-      requirement:'',
-      preferential:'',
-      contact:'gimpact@handong.edu',
-    }
   });
+  const updateOrCreateProfile = (key, newProfile)=>{
+    const updated = {...students};
+    updated[key] = newProfile;
+    setStudents(updated);
+  }
+  const addOrCreateOffer = (key, newOffer)=>{
+      const updated = {...offers};
+      updated[key] = newOffer;
+      setOffers(updated);
+  }
   const handleProfileDB = (data) =>{
-    setStudents(Object.keys(data).map((profile)=>{
+    const updated = {};
+    Object.keys(data).forEach((key)=>{
       const newStudent = {
-        uid:data[profile].uid,
-        name: data[profile].name,
-        about:data[profile].about,
-        major:data[profile].major,
-        email:data[profile].email,
-        tags: data[profile].tags,
-        abilities: data[profile].abilities,
-        experience: data[profile].experience,
-        profileImg: data[profile].profileImg,
-        homepage: data[profile].homepage,
+        uid:data[key].uid,
+        name: data[key].name,
+        about:data[key].about,
+        major:data[key].major,
+        email:data[key].email,
+        tags: data[key].tags,
+        abilities: data[key].abilities,
+        experience: data[key].experience,
+        profileImg: data[key].profileImg,
+        homepage: data[key].homepage,
       }
-      console.log(newStudent);
-      return newStudent;
-    }));
+      updated[key] = {...newStudent};
+    });
+    console.log(updated);
+    setStudents(updated);
   }
   return <Component {...pageProps} 
   students={students} 
   handleProfileDB={handleProfileDB}
   setOffers={setOffers}
-  offers={offers} 
-  database={database} />
+  offers={offers}
+  addOrCreateOffer={addOrCreateOffer} 
+  database={database}
+  fireBaseApp={fireBaseApp}
+  updateOrCreateProfile={updateOrCreateProfile} 
+  />
 }
 
 export default MyApp

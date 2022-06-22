@@ -33,7 +33,7 @@ export default function Students({students}){
                         return <Profile  
                         key={students[key].uid} 
                         studentInfo={students[key]} 
-                        handleRouting={handleProfileRouting}
+                        handleRouting={()=>handleProfileRouting(key)}
                         />
                     })}
                 </ul>

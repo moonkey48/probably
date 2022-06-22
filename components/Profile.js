@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 
 export default function Profile({studentInfo,handleRouting}){
     return <li className='profile__box'>

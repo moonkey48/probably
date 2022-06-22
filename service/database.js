@@ -6,18 +6,7 @@ class Database{
         this.database =getDatabase();
     }
     setProfile(key, data){
-        set(ref(this.database, 'profiles/' + key), {
-            uid: key,
-            name: data.name,
-            about: data.about,
-            major: data.major,
-            email: data.email,
-            tags: [...data.tags],
-            abilities:[...data.abilities],
-            experience: data.experience,
-            profileImg: data.profileImg,
-            homepage: data.hompage,  
-        });
+        set(ref(this.database, 'profiles/' + key), data);
     }
     setOffer(key, data){
         set(ref(this.database, 'offers/' + key), {
@@ -46,6 +35,7 @@ class Database{
             const data = snapshot.val();
             updateOffers(data);
         })
+        return ()=>off(refOffers);
     }
 
 }
