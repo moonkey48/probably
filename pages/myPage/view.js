@@ -23,7 +23,8 @@ export default function myPageView({students,userId}){
                         onClick={()=>router.back()}
                         >돌아가기</span>
                     </button>
-                    <button className='editButton'>수정하기</button>
+                    <button onClick={()=>router.push('/myPage/edit')} className='editButton'>
+                        수정하기</button>
                 </div>
                 <div className='profileBox'>
                     <section className='profile-left'>
