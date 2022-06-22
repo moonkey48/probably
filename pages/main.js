@@ -6,8 +6,8 @@ import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 import Offer from '../components/Offer';
 
-export default function Main({students,offers,fireBaseApp}){
-    const [userId,setUserId] = useState()
+export default function Main({students,offers,userId}){
+    
     const router = useRouter();
     const handleOfferRouting = (key) =>{
         const title = offers[key].title;
@@ -27,9 +27,6 @@ export default function Main({students,offers,fireBaseApp}){
             }
         })
     }
-    useEffect(()=>{
-        fireBaseApp.onAuthChanged((id)=>setUserId(id));
-    },[]);
     return <>
     <Seo title='Home'/>
     <div className='container'>

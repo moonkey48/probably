@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/globals.css'
 import Database from '../service/database';
 import Firebase from '../service/firebase';
@@ -9,19 +9,8 @@ const database = new Database(firebaseApp);
 const fireBaseApp = new Firebase(firebaseApp);
 
 function MyApp({ Component, pageProps }) {
+  const [userId,setUserId] = useState()
   const [students,setStudents] = useState({
-    'testUid1':{
-      uid:'testUid1',
-      name:'문승의',
-      about:'매일 성장하는 개발자 문승의입니다.',
-      major:'Front-end',
-      email:'21500242@handong.edu',
-      tags: {},
-      abilities: {},
-      experience:'',
-      profileImg:'',
-      homepage:'',
-    },
   });
   const [offers, setOffers] = useState({
     'req1':{
@@ -36,6 +25,24 @@ function MyApp({ Component, pageProps }) {
       contact:'handong_church@handong.edu',
     },
   });
+  useEffect(()=>{
+    fireBaseApp.onAuthChanged((id)=>{
+      console.log(`id changed to ${id}`)
+      setUserId(id)
+    });
+
+    const stopSyncOfferDB = database.syncOffers((data)=>setOffers(data));
+    const stopSyncProfileDB = database.syncProfiles((data)=>{
+      handleProfileDB(data);
+    });
+    return ()=>{
+      console.log(students);
+      stopSyncOfferDB();
+      stopSyncProfileDB();
+      console.log('sync stoped');
+    }
+  },[]);
+  
   const updateOrCreateProfile = (key, newProfile)=>{
     const updated = {...students};
     updated[key] = newProfile;
@@ -67,14 +74,15 @@ function MyApp({ Component, pageProps }) {
     setStudents(updated);
   }
   return <Component {...pageProps} 
-  students={students} 
-  handleProfileDB={handleProfileDB}
-  setOffers={setOffers}
-  offers={offers}
-  addOrCreateOffer={addOrCreateOffer} 
-  database={database}
-  fireBaseApp={fireBaseApp}
-  updateOrCreateProfile={updateOrCreateProfile} 
+    students={students} 
+    handleProfileDB={handleProfileDB}
+    setOffers={setOffers}
+    offers={offers}
+    addOrCreateOffer={addOrCreateOffer} 
+    database={database}
+    fireBaseApp={fireBaseApp}
+    updateOrCreateProfile={updateOrCreateProfile} 
+    userId={userId}
   />
 }
 

@@ -5,7 +5,7 @@ import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 import { useRouter } from 'next/router';
 
-export default function Students({students}){
+export default function Students({students,userId}){
     const router = useRouter();
     const [tags, setTags] = useState([]);
     const deleteTag = (tagIndex) => {
@@ -26,7 +26,7 @@ export default function Students({students}){
     <div className='container'>
         <SideBar clicked='Students'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} />
+            <Header setTags={setTags} tags={tags} deleteTag={deleteTag}userId={userId}/>
             <div>
                 <ul className='profile-list'>
                     {Object.keys(students).map(key=>{
