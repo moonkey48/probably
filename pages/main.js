@@ -95,6 +95,17 @@ export default function Main({students,offers,userId,fireBaseApp}){
     .section-offer{
         flex:5;
     }
+    @media (max-width: 800px){
+        .container{
+            flex-direction:column;
+            margin-top: 0;
+            padding:0;
+        }
+        .main__body{
+            flex-direction:column;
+            padding: 0 20px;
+        }
+    }
     `}</style>
     </>
 }

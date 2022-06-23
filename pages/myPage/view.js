@@ -3,7 +3,7 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function myPageView({students,userId}){
+export default function myPageView({students,offers,userId}){
     const router = useRouter();
     const key = router.query.userId;
     const myInfo = students[key];
@@ -51,6 +51,21 @@ export default function myPageView({students,userId}){
                         <div className='right-section__item'>
                             <h3 className='part'>이메일</h3>
                             <p className='part-desc'>{myInfo?.email && myInfo.email}</p>
+                        </div>
+                        <div>
+                            <ul>
+                            {
+                                Object.keys(offers).filter(key=>{
+                                    if(offers[key].client == userId){
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }).map(key=>{
+                                    return <li key={key}>{offers[key].title}</li>
+                                })
+                            }
+                            </ul>
                         </div>
                     </section>
                 </div>
@@ -189,6 +204,27 @@ export default function myPageView({students,userId}){
                     color: #036EC3;
                     padding-left:5px;
                     padding-top:3px;
+                }
+                @media (max-width: 800px){
+                    .container{
+                        flex-direction:column;
+                        margin-top: 0;
+                        padding:0;
+                    }
+                    .profileBox{
+                        flex-direction:column;
+                        padding: 0 20px;
+                    }
+                    .navigators{
+                        padding: 0 20px;
+                        margin-bottom:10px;
+                        display:flex;
+                        flex-direction:row;
+                        align-items:center;
+                    }
+                    .editButton{
+                        font-size:14px;
+                    }
                 }
             `}</style>
         </div>

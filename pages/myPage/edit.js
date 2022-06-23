@@ -366,6 +366,27 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
                     padding-left:5px;
                     padding-top:3px;
                 }
+                @media (max-width: 800px){
+                    .container{
+                        flex-direction:column;
+                        margin-top: 0;
+                        padding:0;
+                    }
+                    .profileBox{
+                        flex-direction:column;
+                        padding: 0 20px;
+                    }
+                    .navigators{
+                        padding: 0 20px;
+                        margin-bottom:10px;
+                        display:flex;
+                        flex-direction:row;
+                        align-items:center;
+                    }
+                    .editButton{
+                        font-size:14px;
+                    }
+                }
             `}</style>
         </div>
     </>

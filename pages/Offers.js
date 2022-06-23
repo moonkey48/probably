@@ -40,7 +40,7 @@ export default function Offers({offers,userId,fireBaseApp}){
                     </a>
                 </Link>
             </div>
-            <div>
+            <div className='offer-section'>
                 <ul className='offer-list'>
                     {
                     tags.length === 0?
@@ -133,6 +133,19 @@ export default function Offers({offers,userId,fireBaseApp}){
     }
     .button_text{
         padding:3px 0 0 5px;
+    }
+    @media (max-width: 800px){
+        .container{
+            flex-direction:column;
+            margin-top: 0;
+            padding:0;
+        }
+        .offer-section{
+            padding: 0 20px;
+        }
+        .button-box{
+            padding: 0 20px;
+        }
     }
     `}</style>
     </>

@@ -19,6 +19,7 @@ class Database{
             requirement: data.requirement,
             preferential: data.preferential,
             contact: data.contact, 
+            client: data.client,
         });
     }
     syncProfiles(updateProfiles){

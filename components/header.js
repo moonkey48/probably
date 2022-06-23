@@ -49,6 +49,16 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
             </svg>
         </div>
         <style jsx>{`
+            header{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items:center;
+                width:100%;
+                padding-bottom:20px;
+                border-bottom: 1px solid #EBEBED;
+                margin-bottom: 15px;
+            }
             .profileBox{
                 display:flex;
                 flex-direction:row;
@@ -64,16 +74,6 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
             }
             .logout:hover{
                 color:#686868;
-            }
-            header{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items:center;
-                width:100%;
-                padding-bottom:20px;
-                border-bottom: 1px solid #EBEBED;
-                margin-bottom: 30px;
             }
             .search__box{
                 display:flex;
@@ -119,6 +119,11 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
             }
             .deleteTag:hover{
                 color:#686868;
+            }
+            @media (max-width:800px){
+                header{
+                    padding: 0 20px 10px;
+                }
             }
         `}</style>
     </header>

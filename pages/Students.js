@@ -27,7 +27,7 @@ export default function Students({students,userId,fireBaseApp}){
         <SideBar clicked='Students'/>
         <main className='main'>
             <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId} fireBaseApp={fireBaseApp}/>
-            <div>
+            <div className='profile-section'>
                 <ul className='profile-list'>
                     {tags.length===0?
                     Object.keys(students).map(key=>{
@@ -98,6 +98,16 @@ export default function Students({students,userId,fireBaseApp}){
         flex-direction: row;
         flex-wrap:wrap;
         gap:10px;
+    }
+    @media (max-width: 800px){
+        .container{
+            flex-direction:column;
+            margin-top: 0;
+            padding:0;
+        }
+        .profile-section{
+            padding: 0 20px;
+        }
     }
     `}</style>
     </>
