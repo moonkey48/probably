@@ -42,9 +42,26 @@ export default function Offers({offers,userId,fireBaseApp}){
             </div>
             <div>
                 <ul className='offer-list'>
-                    {Object.keys(offers).map(key=>{
+                    {
+                    tags.length === 0?
+                    Object.keys(offers).map(key=>{
                         return <Offer key={key} offer={offers[key]} handleRouting={()=>handleRouting(key)}/>
-                    })}
+                    })
+                    :
+                    Object.keys(offers).filter(key=>{
+                        let result = false;
+                        for(let i=0;i<tags.length;i++){
+                            if(offers[key].request == tags[i]){
+                                result = true;
+                            }
+                        }
+                        return result;
+                    }).map(key=>{
+                        return<Offer key={key} 
+                        offer={offers[key]} 
+                        handleRouting={()=>handleRouting(key)}/>
+                    })
+                    }
                 </ul>
             </div>
         </main>

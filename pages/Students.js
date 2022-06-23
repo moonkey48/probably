@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Header from '../components/header';
 import SideBar from '../components/SideBar';
 import Seo from '../components/Seo';
@@ -26,16 +26,37 @@ export default function Students({students,userId,fireBaseApp}){
     <div className='container'>
         <SideBar clicked='Students'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags} deleteTag={deleteTag}userId={userId} fireBaseApp={fireBaseApp}/>
+            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId} fireBaseApp={fireBaseApp}/>
             <div>
                 <ul className='profile-list'>
-                    {Object.keys(students).map(key=>{
+                    {tags.length===0?
+                    Object.keys(students).map(key=>{
                         return <Profile  
-                        key={students[key].uid} 
-                        studentInfo={students[key]} 
-                        handleRouting={()=>handleProfileRouting(key)}
+                            key={students[key].uid} 
+                            studentInfo={students[key]} 
+                            handleRouting={()=>handleProfileRouting(key)}
                         />
-                    })}
+                    })
+                    :
+                    Object.keys(students).filter(key=>{
+                        let result = false;
+                        Object.values(students[key].tags).forEach(value=>{
+                            for(let i=0;i<tags.length;i++){
+                                console.log(`${tags[i]} ${value}`);
+                                if(tags[i] == value){
+                                    result = true;
+                                }
+                            }
+                        });
+                        return result;
+                    }).map(key=>{
+                        return <Profile  
+                            key={students[key].uid} 
+                            studentInfo={students[key]} 
+                            handleRouting={()=>handleProfileRouting(key)}
+                        />
+                    })
+                    }
                 </ul>
             </div>
         </main>

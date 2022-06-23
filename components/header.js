@@ -39,7 +39,7 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
             }</ul>
         </div>
         :
-        <div></div>
+        <div style={{height:'36px'}}></div>
         }
         <div className='profileBox'>
             <button onClick={(e)=>handleLogout(e)} className='logout'>logout</button>
@@ -79,6 +79,7 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
                 display:flex;
                 flex-direction:row;
                 align-items:center;
+                height:36px;
             }
             input{
                 width: 200px;
