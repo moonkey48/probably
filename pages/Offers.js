@@ -6,7 +6,7 @@ import Offer from '../components/Offer';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-export default function Offers({offers,userId}){
+export default function Offers({offers,userId,fireBaseApp}){
     const [tags, setTags] = useState([]);
     const deleteTag = (tagIndex) => {
         const updated = [...tags.slice(0,tagIndex), ...tags.slice(tagIndex+1)];
@@ -27,7 +27,7 @@ export default function Offers({offers,userId}){
     <div className='container'>
         <SideBar clicked='Offers'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId} />
+            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId}fireBaseApp={fireBaseApp} />
             <div className='button-box'>
                 <Link href='/OfferDetail/add-offer'>
                     <a>

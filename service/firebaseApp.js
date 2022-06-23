@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 
+console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 const firebaseConfig = {
     apiKey: "AIzaSyDNORH4UDKCmSr9XRbdXLub2_fJF1nDEYI",
     authDomain: "business-card-maker-a2091.firebaseapp.com",

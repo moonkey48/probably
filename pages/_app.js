@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }) {
   });
   useEffect(()=>{
     fireBaseApp.onAuthChanged((id)=>{
-      console.log(`id changed to ${id}`)
       setUserId(id)
     });
 
@@ -36,7 +35,6 @@ function MyApp({ Component, pageProps }) {
       handleProfileDB(data);
     });
     return ()=>{
-      console.log(students);
       stopSyncOfferDB();
       stopSyncProfileDB();
       console.log('sync stoped');
@@ -70,7 +68,6 @@ function MyApp({ Component, pageProps }) {
       }
       updated[key] = {...newStudent};
     });
-    console.log(updated);
     setStudents(updated);
   }
   return <Component {...pageProps} 

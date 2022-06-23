@@ -3,10 +3,20 @@ import { useState, useEffect, useRef } from 'react';
 import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
+import Cloudinary from '../../service/cloudinary';
+
+const cloudinary = new Cloudinary();
 
 export default function myPageEdit({students,userId,updateOrCreateProfile,database}){
     const [tags,setTags] = useState({});
     const router = useRouter();
+    const myInfo = students[userId];
+    const baseUrl = 'https://res.cloudinary.com/dl6lruomz/image/upload/v1655959496/profile';
+    const [profileUrl, setProfileUrl] = useState(myInfo?.profileImg?myInfo.profileImg : baseUrl+'1.jpg');
+
+    const imgFormRef = useRef();
+    const imgFileRef = useRef();
+    const imgSubmitRef = useRef();
 
     const nameRef = useRef();
     const majorRef = useRef();
@@ -17,7 +27,7 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
     const tagRef = useRef();
     const tagFormRef = useRef();
 
-    const myInfo = students[userId];
+    
 
     const handleTagDelete = (key) =>{
         const updated = {...tags};
@@ -41,12 +51,12 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
             email: emailRef.current.value || '-',
             tags: {...tags},
             experience: experienceRef.current.value || '-',
-            profileImg: '',
+            profileImg: profileUrl,
             homepage: homepageRef.current.value || '-',
         }
         updateOrCreateProfile(userId, updatedProfile);
         database.setProfile(userId, updatedProfile);
-        router.back();
+        router.push('/main');
     }
     useEffect(()=>{
         const updated = {};
@@ -54,7 +64,10 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
         setTags(updated);
     },[students]);
     
-    
+    const handleImgChange= () =>{
+        const file = imgFileRef.current.files[0];
+        cloudinary.setProfile(file,(url)=>setProfileUrl(url));
+    }
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -73,7 +86,19 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
                 </div>
                 <div className='profileBox'>
                     <section className='profile-left'>
-                        <div className='profile__img'></div>
+                        <img className='profile__img' src={profileUrl}></img>
+                        <ul className='profile__sampleList'>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'1.jpg')} className='profile__sample' src={baseUrl+'1.jpg'}/></li>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'2.jpg')} className='profile__sample' src={baseUrl+'2.jpg'}/></li>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'3.jpg')} className='profile__sample' src={baseUrl+'3.jpg'}/></li>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'4.jpg')} className='profile__sample' src={baseUrl+'4.jpg'}/></li>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'5.jpg')} className='profile__sample' src={baseUrl+'5.jpg'}/></li>
+                            <li><img onClick={()=>setProfileUrl(baseUrl+'6.jpg')} className='profile__sample' src={baseUrl+'6.jpg'}/></li>
+                        </ul>
+                        <form className='fileForm' ref={imgFormRef} method="post" encType="multipart/form-data">
+                            <input ref={imgFileRef} onChange={()=>handleImgChange()} id='newProfileInput' type="file" name="files[]"/>
+                            <label htmlFor="newProfileInput">새로운 이미지 추가</label>
+                        </form>
                     </section>
                     <section className='profile-right'>
                         <div className='section__item'>
@@ -125,6 +150,51 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
                 </div>
             </main>
             <style jsx>{`
+                label{
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #036EC3;
+                    background-color: none;
+                    width:140px;
+                    height:30px;
+                    padding:5px 5px 20px;
+                    border-radius:5px;
+                    cursor:pointer;
+                    transition: opacity 0.2s;
+                }
+                label:hover{
+                    opacity:0.7;
+                }
+                #newProfileInput{
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip:rect(0,0,0,0);
+                    border: 0;
+                }
+                .fileForm{
+                    display:flex;
+                    flex-direction:column;
+                    align-items:center;
+                }
+                .profile__sampleList{
+                    display:flex;
+                    flex-direction:row;
+                    flex-wrap:wrap;
+                    justify-content:center;
+                }
+                .profile__sample{
+                    width:50px;
+                    height:50px;
+                    transition: opacity 0.2s;
+                    cursor:pointer;
+                }
+                .profile__sample:hover{
+                    opacity:0.6;
+                }
                 .tag__list{
                     display:flex;
                     flex-direction:row;
@@ -158,8 +228,7 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
                 .profile__img{
                     width:170px;
                     height:170px;
-                    background:grey;
-                    border-radius:10px;
+                    border-radius:50%;
                 }
                 input{
                     border: 1px solid #EBEBED;

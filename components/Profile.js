@@ -3,7 +3,7 @@
 export default function Profile({studentInfo,handleRouting}){
     return <li className='profile__box'>
         <div className='profile__info'>
-            <div className='profile__img'></div>
+            <img className='profile__img' src={studentInfo?.profileImg && studentInfo.profileImg}></img>
             <h3 className='profile__name'>{studentInfo.name}</h3>
             <h3 className='profile__major'>{studentInfo.major}</h3>
             <ul className='profile__tagList'>
@@ -38,7 +38,6 @@ export default function Profile({studentInfo,handleRouting}){
         .profile__img{
             width:100px;
             height:100px;
-            background-color: grey;
             border-radius:50%;
         }
         .profile__name{

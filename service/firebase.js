@@ -17,10 +17,8 @@ class Firebase{
     onAuthChanged(callback){
       onAuthStateChanged(this.auth, (user) => {
         if (user) {
-          console.log(`changed to ${user.uid}`);
           callback(user.uid);
         } else {
-          console.log(`user not existed`);
           return;
         }
       });

@@ -6,8 +6,7 @@ import Seo from '../components/Seo';
 import Profile from '../components/Profile';
 import Offer from '../components/Offer';
 
-export default function Main({students,offers,userId}){
-    
+export default function Main({students,offers,userId,fireBaseApp}){
     const router = useRouter();
     const handleOfferRouting = (key) =>{
         const title = offers[key].title;
@@ -32,7 +31,7 @@ export default function Main({students,offers,userId}){
     <div className='container'>
         <SideBar clicked='Home'/>
         <main className='main'>
-            <Header userId={userId}/>
+            <Header userId={userId} fireBaseApp={fireBaseApp}/>
             <div className='main__body'>
                 <section className='section-profile'>
                     <h2 className='section__title'>Profiles</h2> 

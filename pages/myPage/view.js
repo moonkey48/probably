@@ -7,7 +7,6 @@ export default function myPageView({students,userId}){
     const router = useRouter();
     const key = router.query.userId;
     const myInfo = students[key];
-    console.log(myInfo);
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -28,7 +27,7 @@ export default function myPageView({students,userId}){
                 </div>
                 <div className='profileBox'>
                     <section className='profile-left'>
-                        <div className='profile__img'></div>
+                        <img className='profile__img' src={myInfo?.profileImg && myInfo.profileImg}></img>
                         <h3 className='profile__name'>{ myInfo?.name && myInfo.name }</h3>
                         <h3 className='profile__major'>{myInfo?.major && myInfo.major}</h3>
                         <div className='profile__about'>{myInfo?.about && myInfo.about}</div>
@@ -57,17 +56,16 @@ export default function myPageView({students,userId}){
                 </div>
             </main>
             <style jsx>{`
+                .profile__img{
+                    width:170px;
+                    height:170px;
+                    border-radius:50%;
+                }
                 .profileBox{
                     width:100%;
                     display:flex;
                     flex-direction:row;
                     gap:10px;
-                }
-                .profile__img{
-                    width:170px;
-                    height:170px;
-                    background:grey;
-                    border-radius:10px;
                 }
                 .profile__name{
                     padding:10px 0 5px;

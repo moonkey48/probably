@@ -7,7 +7,6 @@ export default function ProfilePage({students}){
     const router = useRouter();
     const key = router.query.key;
     const studentInfo = students[key];
-    console.log(router);
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -26,7 +25,7 @@ export default function ProfilePage({students}){
                 </div>
                 <div className='profileBox'>
                     <section className='profile-left'>
-                        <div className='profile__img'></div>
+                        <img className='profile__img' src={studentInfo?.profileImg && studentInfo.profileImg}></img>
                         <h3 className='profile__name'>{ studentInfo?.name && studentInfo.name }</h3>
                         <h3 className='profile__major'>{studentInfo?.major && studentInfo.major}</h3>
                         <div className='profile__about'>{studentInfo?.about && studentInfo.about}</div>
@@ -64,8 +63,7 @@ export default function ProfilePage({students}){
                 .profile__img{
                     width:170px;
                     height:170px;
-                    background:grey;
-                    border-radius:10px;
+                    border-radius: 50%;
                 }
                 .profile__name{
                     padding:10px 0 5px;
