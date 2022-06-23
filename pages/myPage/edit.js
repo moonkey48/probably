@@ -1,18 +1,66 @@
 import { useRouter } from 'next/router'
+import { useState, useEffect, useRef } from 'react';
 import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function myPageEdit({students,userId}){
+export default function myPageEdit({students,userId,updateOrCreateProfile,database}){
+    const [tags,setTags] = useState({});
     const router = useRouter();
+
+    const nameRef = useRef();
+    const majorRef = useRef();
+    const aboutRef = useRef();
+    const experienceRef = useRef();
+    const homepageRef = useRef();
+    const emailRef = useRef();
+    const tagRef = useRef();
+    const tagFormRef = useRef();
+
     const myInfo = students[userId];
-    console.log(myInfo);
+
+    const handleTagDelete = (key) =>{
+        const updated = {...tags};
+        delete updated[key];
+        setTags(updated);
+    }
+    const handleTagAdd = (e) =>{
+        e.preventDefault();
+        const updated = {...tags};
+        const key = Date.now();
+        updated[key]= tagRef.current.value;
+        setTags(updated);
+        tagFormRef.current.reset();
+    }
+    const handleSubmit = () =>{
+        const updatedProfile = {
+            uid: userId,
+            name: nameRef.current.value || '-',
+            about: aboutRef.current.value || '-',
+            major: majorRef.current.value || '-',
+            email: emailRef.current.value || '-',
+            tags: {...tags},
+            experience: experienceRef.current.value || '-',
+            profileImg: '',
+            homepage: homepageRef.current.value || '-',
+        }
+        updateOrCreateProfile(userId, updatedProfile);
+        database.setProfile(userId, updatedProfile);
+        router.back();
+    }
+    useEffect(()=>{
+        const updated = {};
+        myInfo?.tags && Object.keys(myInfo.tags).forEach((key,index)=>updated[index] = myInfo.tags[key]);
+        setTags(updated);
+    },[students]);
+    
+    
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
             <SideBar clicked=''/>
             <main className='main'>
-                <Header/>
+                <Header userId={userId}/>
                 <div className='navigators'>
                     <button className='back-button'>
                         <svg width="7" height="15" viewBox="0 0 7 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,49 +70,85 @@ export default function myPageEdit({students,userId}){
                         onClick={()=>router.back()}
                         >돌아가기</span>
                     </button>
-                    <button className='editButton'>수정취소</button>
                 </div>
                 <div className='profileBox'>
                     <section className='profile-left'>
                         <div className='profile__img'></div>
-                        <input className='name' placeholder={myInfo?.name && myInfo.name}></input>
-                        <input className='major' placeholder={myInfo?.major && myInfo.major}></input>
-                        <input className='about' placeholder={myInfo?.about && myInfo.about}></input>
-                        <ul className='tags'>
-                        {
-                            myInfo?.tags && Object.keys(myInfo.tags).map((tag,index)=>{
-                                return <input key={index} className='tag' placeholder={myInfo.tags[tag]}></input>
-                            })
-                        }
-                        </ul>
                     </section>
                     <section className='profile-right'>
-                        <div className='right-section__item'>
-                            <h3 className='part'>가능 분야</h3>
-                            <ul className='ability'>
+                        <div className='section__item'>
+                            <h3 className='part'>이름</h3>
+                            <input ref={nameRef} className='name' placeholder={myInfo?.name && myInfo.name}></input>
+                        </div>
+                        <div className='section__item'>
+                            <h3 className='part'>전공</h3>
+                            <input ref={majorRef} className='major' placeholder={myInfo?.major && myInfo.major}></input>
+                        </div>
+                        <div className='section__item'>
+                            <h3 className='part'>태그</h3>
+                            <ul className='tag__list'>
                             {
-                                myInfo?.abilities && Object.keys(myInfo.abilities).map((ability,index)=>{
-                                    return <li className='part-desc' key={index}>{myInfo.abilities[ability]},</li>
+                                tags && Object.keys(tags).map((key,index)=>{
+                                    return <li className='tag__item' key={index}>
+                                        <span className='tag__name'>{tags[key]}</span>
+                                        <button onClick={()=>handleTagDelete(key)} className='tag__delete'>x</button>
+                                    </li>
                                 })
                             }
-                            </ul>
+                            <form ref={tagFormRef} onSubmit={(e)=>handleTagAdd(e)}>
+                                <input ref={tagRef} className='tag' placeholder='자신을 표현할 수 있는 태그를입력해주세요.'></input>
+                            </form>
+                        </ul>
                         </div>
-                        <div className='right-section__item'>
+                        <div className='section__item'>
+                            <h3 className='part'>한줄소개</h3>
+                            <input ref={aboutRef} className='about' placeholder={myInfo?.about && myInfo.about}></input>
+                        </div>
+                        <div className='section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
-                            <input className='experience' placeholder={myInfo?.experience && myInfo.experience}></input>
+                            <textarea rows="5" cols="40" ref={experienceRef} className='experience' placeholder={myInfo?.experience && myInfo.experience}></textarea>
                         </div>
-                        <div className='right-section__item'>
+                        <div className='section__item'>
                             <h3 className='part'>개인 페이지</h3>
-                            <input className='homepage' placeholder={myInfo?.homepage && myInfo.homepage}></input>
+                            <input ref={homepageRef} className='homepage' placeholder={myInfo?.homepage && myInfo.homepage}></input>
                         </div>
-                        <div className='right-section__item'>
+                        <div className='section__item'>
                             <h3 className='part'>이메일</h3>
-                            <input className='email' placeholder={myInfo?.email && myInfo.email}></input>
+                            <input ref={emailRef} className='email' placeholder={myInfo?.email && myInfo.email}></input>
+                        </div>
+                        <div className='button-box'>
+                            <button className='editButton' onClick={()=>router.back()}>
+                                수정취소</button>
+                            <button onClick={()=>handleSubmit()} className='submitButton'>수정 완료</button>
                         </div>
                     </section>
                 </div>
             </main>
             <style jsx>{`
+                .tag__list{
+                    display:flex;
+                    flex-direction:row;
+                    flex-wrap:wrap;
+                    gap:10px;
+                }
+                .tag__item{
+                    display:flex;
+                    flex-direction:row;
+                    align-items:center;
+                    gap:5px;
+                    padding-bottom: 15px;
+                }
+                .tag__name{
+                    font-size:12px;
+                    font-weight:bold;
+                    color: #036EC3;
+                }
+                .tag__delete{
+                    border:none;
+                    background:none;
+                    color:grey;
+                    cursor:pointer;
+                }
                 .profileBox{
                     width:100%;
                     display:flex;
@@ -80,11 +164,12 @@ export default function myPageEdit({students,userId}){
                 input{
                     border: 1px solid #EBEBED;
                     padding:5px 7px;
+                    width:400px;
                 }
                 input:focus{
                     outline:none;
                 }
-                .right-section__item{
+                .section__item{
                     display:flex;
                     flex-direction:row;
                 }
@@ -97,6 +182,15 @@ export default function myPageEdit({students,userId}){
                     text-align:center;
                     padding-right:20px;
                     color: #036EC3;
+                }
+                .experience{
+                    border: 1px solid #EBEBED;
+                    padding:5px 7px;
+                    resize: none;
+                    width:400px;
+                }
+                .experience:focus{
+                    outline:none;
                 }
                 .part-desc{
                     font-size:16px;
@@ -139,12 +233,13 @@ export default function myPageEdit({students,userId}){
                     flex-direction: column;  
                     flex-basis:900px;
                 }
-                .navigators{
+                .button-box{
                     display:flex;
                     flex-direction:row;
                     align-items:center;
-                    justify-content:space-between;
-                    padding-bottom:10px;
+                    justify-content:center;
+                    padding:10px 0;
+                    gap:20px;
                 }
                 .back-button{
                     border:none;
@@ -161,7 +256,20 @@ export default function myPageEdit({students,userId}){
                 }
                 .editButton{
                     font-weight: 500;
-                    font-size: 16px;
+                    font-size: 14px;
+                    color: #fff;
+                    border: none;
+                    background-color: #DC6B03;
+                    width:100px;
+                    height:30px;
+                    padding:5px;
+                    border-radius:5px;
+                    cursor:pointer;
+                    transition: opacity 0.2s;
+                }
+                .submitButton{
+                    font-weight: 500;
+                    font-size: 14px;
                     color: #fff;
                     border:1px solid #036EC3;
                     background-color: #036EC3;

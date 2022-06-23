@@ -40,16 +40,6 @@ export default function ProfilePage({students}){
                     </section>
                     <section className='profile-right'>
                         <div className='right-section__item'>
-                            <h3 className='part'>가능 분야</h3>
-                            <ul className='profile__ability'>
-                            {
-                                studentInfo?.abilities && Object.keys(studentInfo.abilities).map((ability,index)=>{
-                                    return <li className='part-desc' key={index}>{studentInfo.abilities[ability]},</li>
-                                })
-                            }
-                            </ul>
-                        </div>
-                        <div className='right-section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
                             <p className='part-desc'>{studentInfo?.experience && studentInfo.experience}</p>
                         </div>

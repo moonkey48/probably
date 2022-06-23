@@ -13,7 +13,7 @@ export default function myPageView({students,userId}){
         <div className='container'>
             <SideBar clicked=''/>
             <main className='main'>
-                <Header/>
+                <Header userId={userId}/>
                 <div className='navigators'>
                     <button className='back-button'>
                         <svg width="7" height="15" viewBox="0 0 7 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,16 +41,6 @@ export default function myPageView({students,userId}){
                         </ul>
                     </section>
                     <section className='profile-right'>
-                        <div className='right-section__item'>
-                            <h3 className='part'>가능 분야</h3>
-                            <ul className='profile__ability'>
-                            {
-                                myInfo?.abilities && Object.keys(myInfo.abilities).map((ability,index)=>{
-                                    return <li className='part-desc' key={index}>{myInfo.abilities[ability]},</li>
-                                })
-                            }
-                            </ul>
-                        </div>
                         <div className='right-section__item'>
                             <h3 className='part'>관련 업무 경험</h3>
                             <p className='part-desc'>{myInfo?.experience && myInfo.experience}</p>

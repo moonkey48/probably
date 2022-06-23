@@ -21,7 +21,6 @@ export default function Home({fireBaseApp, database, setOffers,handleProfileDB,s
           major: '-',
           email:result.email,
           tags: {},
-          abilities: {},
           experience: '-',
           profileImg: '-',
           homepage: '-',
