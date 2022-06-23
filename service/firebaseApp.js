@@ -1,15 +1,14 @@
 import { initializeApp } from 'firebase/app';
 
-console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
 const firebaseConfig = {
-    apiKey: "AIzaSyDNORH4UDKCmSr9XRbdXLub2_fJF1nDEYI",
-    authDomain: "business-card-maker-a2091.firebaseapp.com",
-    databaseURL: "https://business-card-maker-a2091-default-rtdb.firebaseio.com",
-    projectId: "business-card-maker-a2091",
-    storageBucket: "business-card-maker-a2091.appspot.com",
-    messagingSenderId: "498176025959",
-    appId: "1:498176025959:web:6fd9aff40c77e15c23bbc2",
-    measurementId: "G-9GRT60RQYG"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGEING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);

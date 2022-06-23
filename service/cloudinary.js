@@ -2,10 +2,11 @@ class Cloudinary{
     cloudName;
     apiKey;
     url;
+    preset;
     constructor(){
-        this.cloudName = 'dl6lruomz';
-        this.apiKey = '978595732268374';
-        this.preset = 'fzicm6jz';
+        this.cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+        this.apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+        this.preset = process.env.NEXT_PUBLIC_CLOUDINARY_PRESET;
         this.url = `https://api.cloudinary.com/v1_1/${this.cloudName}/image/upload`;
     }
     setProfile(file,callback){
