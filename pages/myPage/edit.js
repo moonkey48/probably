@@ -16,7 +16,6 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
 
     const imgFormRef = useRef();
     const imgFileRef = useRef();
-    const imgSubmitRef = useRef();
 
     const nameRef = useRef();
     const majorRef = useRef();
@@ -62,6 +61,14 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
         const updated = {};
         myInfo?.tags && Object.keys(myInfo.tags).forEach((key,index)=>updated[index] = myInfo.tags[key]);
         setTags(updated);
+
+        nameRef.current.value = myInfo?.name;
+        majorRef.current.value = myInfo?.major;
+        aboutRef.current.value = myInfo?.about;
+        experienceRef.current.value = myInfo?.experience;
+        homepageRef.current.value = myInfo?.homepage;
+        emailRef.current.value = myInfo?.email;
+
     },[students]);
     
     const handleImgChange= () =>{
@@ -103,7 +110,7 @@ export default function myPageEdit({students,userId,updateOrCreateProfile,databa
                     <section className='profile-right'>
                         <div className='section__item'>
                             <h3 className='part'>이름</h3>
-                            <input ref={nameRef} className='name' placeholder={myInfo?.name && myInfo.name}></input>
+                            <input ref={nameRef} className='name'  placeholder={myInfo?.name && myInfo.name}></input>
                         </div>
                         <div className='section__item'>
                             <h3 className='part'>전공</h3>
