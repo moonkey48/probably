@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react';
 import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
@@ -26,28 +25,28 @@ export default function OfferDetail({offers}){
                 <section className='detail-section'>
                     <ul className='detail__list'>
                         <li className='detail__item'>
-                            <h3 className='part'>{offers[key].request}</h3>
-                            <h3 className='title'>{offers[key].title}</h3>
+                            <h3 className='part'>{offers[key]?.request || '-'}</h3>
+                            <h3 className='title'>{offers[key]?.title || '-'}</h3>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>내용</h3>
-                            <p className='content'>{offers[key].body}</p>
+                            <p className='content'>{offers[key]?.body || '-'}</p>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>기한</h3>
-                            <h3 className='content'>{offers[key].due}</h3>
+                            <h3 className='content'>{offers[key]?.due || '-'}</h3>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>조건</h3>
-                            <h3 className='content'>{offers[key].requirement || '-'}</h3>
+                            <h3 className='content'>{offers[key]?.requirement || '-'}</h3>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>우대사항</h3>
-                            <h3 className='content'>{offers[key].preferential || '-'}</h3>
+                            <h3 className='content'>{offers[key]?.preferential || '-'}</h3>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>연락처</h3>
-                            <h3 className='content'>{offers[key].contact}</h3>
+                            <h3 className='content'>{offers[key]?.contact || '-'}</h3>
                         </li>
                     </ul>
                 </section>
