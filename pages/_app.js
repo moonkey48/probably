@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../styles/globals.css'
 import Database from '../service/database';
 import Firebase from '../service/firebase';
-import {firebaseApp} from '../service/firebaseApp';
+import firebaseApp from '../service/firebaseApp';
 
 
 const database = new Database(firebaseApp);
