@@ -44,7 +44,6 @@ export default function Home({fireBaseApp, database, setOffers,handleProfileDB,s
       handleProfileDB(data);
     });
     return ()=>{
-      console.log(students);
       stopSyncOfferDB();
       stopSyncProfileDB();
       console.log('sync stoped');
