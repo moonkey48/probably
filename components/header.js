@@ -13,7 +13,7 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
     }
     const handleMypageRouting = () =>{
         router.push({
-            pathname:`/MyPage/view`,
+            pathname:`/myPage/view`,
             query:{
                 userId
             }
