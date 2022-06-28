@@ -3,7 +3,7 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function myPageView({students,offers,userId}){
+export default function MyPageView({students,offers,userId}){
     const router = useRouter();
     const key = router.query.userId;
     const myInfo = students[key];

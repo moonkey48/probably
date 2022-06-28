@@ -13,7 +13,7 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
     }
     const handleMypageRouting = () =>{
         router.push({
-            pathname:`/myPage/view`,
+            pathname:`/MyPage/view`,
             query:{
                 userId
             }
@@ -33,7 +33,7 @@ export default function Header({setTags, tags, deleteTag,userId,fireBaseApp}){
             <ul>{
                 tags.length>0?
                 tags.map((tag,index)=>{
-                    return <li>#{tag}<span className='deleteTag' onClick={()=>deleteTag(index)}>X</span></li>
+                    return <li key={index}>#{tag}<span className='deleteTag' onClick={()=>deleteTag(index)}>X</span></li>
                 })
                 :''
             }</ul>

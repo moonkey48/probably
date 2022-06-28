@@ -7,7 +7,7 @@ import Cloudinary from '../../service/cloudinary';
 
 const cloudinary = new Cloudinary();
 
-export default function myPageEdit({students,userId,updateOrCreateProfile,database}){
+export default function MyPageEdit({students,userId,updateOrCreateProfile,database}){
     const [tags,setTags] = useState({});
     const router = useRouter();
     const myInfo = students[userId];
