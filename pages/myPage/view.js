@@ -22,7 +22,7 @@ export default function MyPageView({students,offers,userId}){
                         onClick={()=>router.back()}
                         >돌아가기</span>
                     </button>
-                    <button onClick={()=>router.push('/myPage/edit')} className='editButton'>
+                    <button onClick={()=>router.push('/MyPage/edit')} className='editButton'>
                         수정하기</button>
                 </div>
                 <div className='profileBox'>
@@ -53,7 +53,8 @@ export default function MyPageView({students,offers,userId}){
                             <p className='part-desc'>{myInfo?.email && myInfo.email}</p>
                         </div>
                         <div>
-                            <ul>
+                            <h3 style={{color:'#036EC3', margin:'20px 0 10px'}}>Offer List</h3>
+                            <ul className='offer__list'>
                             {
                                 Object.keys(offers).filter(key=>{
                                     if(offers[key].client == userId){
@@ -62,7 +63,11 @@ export default function MyPageView({students,offers,userId}){
                                         return false;
                                     }
                                 }).map(key=>{
-                                    return <li key={key}>{offers[key].title}</li>
+                                    return <li className='offer__item' key={key}>
+                                        <div className='offer__title'>{offers[key].title}</div>
+                                        <div className='offer__due'>{offers[key].due}</div>
+                                        <button className='offer__delete'>delete</button>
+                                    </li>
                                 })
                             }
                             </ul>
@@ -71,6 +76,34 @@ export default function MyPageView({students,offers,userId}){
                 </div>
             </main>
             <style jsx>{`
+                .offer__list{
+                    display:flex;
+                    flex-direction:column;
+                }
+                .offer__item{
+                    display:flex;
+                    flex-direction:row;
+                    border-bottom:1px solid #EBEBED;
+                    padding:10px 0;
+                }
+                .offer__due{
+                    flex:1 1 30px;
+                    text-align:center;
+                }
+                .offer__title{
+                    flex:3 1 100px;
+                }
+                .offer__delete{
+                    flex;1 1 50px;
+                    border:none;
+                    background:none;
+                    cursor: pointer;          
+                    color:#686868;          
+                    transition:opacity 0.3s;
+                }
+                .offer__delete:hover{
+                    opacity:0.6;
+                }
                 .profile__img{
                     width:170px;
                     height:170px;
