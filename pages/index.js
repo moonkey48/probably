@@ -13,7 +13,6 @@ export default function Home({fireBaseApp, database, setOffers,handleProfileDB,s
         return;
       }
       if(!students[result.uid]){
-        console.log('new user');
         const newStudent = {
           uid:result.uid,
           name: result.name,
@@ -28,8 +27,6 @@ export default function Home({fireBaseApp, database, setOffers,handleProfileDB,s
         updateOrCreateProfile(newStudent.uid, newStudent);
         database.setProfile(result.uid, newStudent);
       }
-
-      console.log(`${result.uid} login success`);
       router.push({
         pathname: '/main',
         query:{

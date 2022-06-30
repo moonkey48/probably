@@ -22,6 +22,9 @@ class Database{
             client: data.client,
         });
     }
+    deleteOffer(key){
+        set(ref(this.database,'offers/' +key),null);
+    }
     syncProfiles(updateProfiles){
         const refProfiles = ref(this.database, '/profiles');
         onValue(refProfiles, (snapshot) => {

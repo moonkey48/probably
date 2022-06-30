@@ -7,7 +7,6 @@ class Firebase{
         const provider = new GoogleAuthProvider;
         await signInWithPopup(this.auth, provider)
           .then((result) => {
-            console.log(result);
             resultFunc({ uid:result.user.uid ,name:result.user.displayName, email:result.user.email});
           }).catch(() => {
             console.log('error in log in');

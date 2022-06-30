@@ -27,7 +27,7 @@ export default function Offers({offers,userId,fireBaseApp}){
     <div className='container'>
         <SideBar clicked='Offers'/>
         <main className='main'>
-            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId}fireBaseApp={fireBaseApp} />
+            <Header setTags={setTags} tags={tags} deleteTag={deleteTag} userId={userId} fireBaseApp={fireBaseApp} />
             <div className='button-box'>
                 <Link href='/OfferDetail/add-offer'>
                     <a>
@@ -44,7 +44,7 @@ export default function Offers({offers,userId,fireBaseApp}){
                 <ul className='offer-list'>
                     {
                     tags.length === 0?
-                    Object.keys(offers).map(key=>{
+                    Object.keys(offers).reverse().map(key=>{
                         return <Offer key={key} offer={offers[key]} handleRouting={()=>handleRouting(key)}/>
                     })
                     :
@@ -56,7 +56,7 @@ export default function Offers({offers,userId,fireBaseApp}){
                             }
                         }
                         return result;
-                    }).map(key=>{
+                    }).reverse().map(key=>{
                         return<Offer key={key} 
                         offer={offers[key]} 
                         handleRouting={()=>handleRouting(key)}/>

@@ -3,10 +3,26 @@ import Header from '../../components/header';
 import Seo from '../../components/Seo';
 import SideBar from '../../components/SideBar';
 
-export default function MyPageView({students,offers,userId}){
+export default function MyPageView({students,offers,userId,database}){
     const router = useRouter();
     const key = router.query.userId;
     const myInfo = students[key];
+    const handleDeleteOffer = (key) =>{
+        database.deleteOffer(offers[key].id);
+    }
+    const handleCompleteOffer = (key) =>{
+        if(offers[key].deadline){
+            database.setOffer(key,{
+                ...offers[key],
+                deadline: false
+            })
+        }else{
+            database.setOffer(key,{
+                ...offers[key],
+                deadline: true
+            })
+        }
+    }
     return <>
         <Seo title='Profiles'/>
         <div className='container'>
@@ -62,11 +78,38 @@ export default function MyPageView({students,offers,userId}){
                                     }else{
                                         return false;
                                     }
-                                }).map(key=>{
+                                }).reverse()
+                                .map(key=>{
                                     return <li className='offer__item' key={key}>
+                                        {
+                                            offers[key].deadline?
+                                            <div className='offer__deadline' style={{color:'#2196F3'}}>완료</div>
+                                            :
+                                            <div className='offer__deadline' style={{color:'#DC6B03'}}>미완</div>
+                                        }
                                         <div className='offer__title'>{offers[key].title}</div>
-                                        <div className='offer__due'>{offers[key].due}</div>
-                                        <button className='offer__delete'>delete</button>
+                                        <div className='offer__due'>기한: {offers[key].due}</div>
+                                        <button className='offer__button'
+                                        onClick={()=>handleCompleteOffer(key)}
+                                        >
+                                        {
+                                         offers[key].deadline?
+                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.25 0C3.85761 0 2.52226 0.553123 1.53769 1.53769C0.553123 2.52226 0 3.85761 0 5.25V15.75C0 17.1424 0.553123 18.4777 1.53769 19.4623C2.52226 20.4469 3.85761 21 5.25 21H15.75C17.1424 21 18.4777 20.4469 19.4623 19.4623C20.4469 18.4777 21 17.1424 21 15.75V5.25C21 3.85761 20.4469 2.52226 19.4623 1.53769C18.4777 0.553123 17.1424 0 15.75 0H5.25ZM14.4165 9.1182C14.5108 9.01754 14.5844 8.89929 14.633 8.7702C14.6816 8.64111 14.7043 8.50371 14.6998 8.36585C14.6954 8.22798 14.6638 8.09235 14.6069 7.96669C14.55 7.84103 14.4689 7.72782 14.3682 7.6335C14.2675 7.53918 14.1493 7.46562 14.0202 7.417C13.8911 7.36839 13.7537 7.34567 13.6158 7.35016C13.478 7.35464 13.3423 7.38624 13.2167 7.44314C13.091 7.50005 12.9778 7.58114 12.8835 7.6818L9.64635 11.1363L8.0472 9.71565C7.83768 9.54147 7.56866 9.45556 7.29697 9.47606C7.02528 9.49656 6.7722 9.62186 6.59119 9.8255C6.41018 10.0291 6.31541 10.2952 6.3269 10.5674C6.3384 10.8396 6.45526 11.0967 6.6528 11.2843L9.0153 13.3843C9.21972 13.5659 9.48691 13.6606 9.76006 13.6483C10.0332 13.6359 10.2908 13.5175 10.4779 13.3182L14.4154 9.1182H14.4165Z" fill="#2196F3"/>
+                                            </svg>
+                                         : 
+                                            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fillRule="evenodd" clipRule="evenodd" d="M5.25 0C3.85761 0 2.52226 0.553123 1.53769 1.53769C0.553123 2.52226 0 3.85761 0 5.25V15.75C0 17.1424 0.553123 18.4777 1.53769 19.4623C2.52226 20.4469 3.85761 21 5.25 21H15.75C17.1424 21 18.4777 20.4469 19.4623 19.4623C20.4469 18.4777 21 17.1424 21 15.75V5.25C21 3.85761 20.4469 2.52226 19.4623 1.53769C18.4777 0.553123 17.1424 0 15.75 0H5.25ZM14.4165 9.1182C14.5108 9.01754 14.5844 8.89929 14.633 8.7702C14.6816 8.64111 14.7043 8.50371 14.6998 8.36585C14.6954 8.22798 14.6638 8.09235 14.6069 7.96669C14.55 7.84103 14.4689 7.72782 14.3682 7.6335C14.2675 7.53918 14.1493 7.46562 14.0202 7.417C13.8911 7.36839 13.7537 7.34567 13.6158 7.35016C13.478 7.35464 13.3423 7.38624 13.2167 7.44314C13.091 7.50005 12.9778 7.58114 12.8835 7.6818L9.64635 11.1363L8.0472 9.71565C7.83768 9.54147 7.56866 9.45556 7.29697 9.47606C7.02528 9.49656 6.7722 9.62186 6.59119 9.8255C6.41018 10.0291 6.31541 10.2952 6.3269 10.5674C6.3384 10.8396 6.45526 11.0967 6.6528 11.2843L9.0153 13.3843C9.21972 13.5659 9.48691 13.6606 9.76006 13.6483C10.0332 13.6359 10.2908 13.5175 10.4779 13.3182L14.4154 9.1182H14.4165Z" fill="#BABABA"/>
+                                            </svg>
+                                        }
+                                        </button>
+                                        <button  className='offer__button'
+                                        onClick={()=>handleDeleteOffer(key)}
+                                        >
+                                            <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M20.125 3.96H16.625V1.76C16.625 0.78925 15.8402 0 14.875 0H6.125C5.15977 0 4.375 0.78925 4.375 1.76V3.96H0.875C0.391016 3.96 0 4.35325 0 4.84V5.72C0 5.841 0.0984375 5.94 0.21875 5.94H1.87031L2.5457 20.3225C2.58945 21.2602 3.36055 22 4.29297 22H16.707C17.6422 22 18.4105 21.263 18.4543 20.3225L19.1297 5.94H20.7812C20.9016 5.94 21 5.841 21 5.72V4.84C21 4.35325 20.609 3.96 20.125 3.96ZM14.6562 3.96H6.34375V1.98H14.6562V3.96Z" fill="#EBEBED"/>
+                                            </svg>
+                                        </button>
                                     </li>
                                 })
                             }
@@ -76,6 +119,11 @@ export default function MyPageView({students,offers,userId}){
                 </div>
             </main>
             <style jsx>{`
+                .offer__deadline{
+                    font-size:14px;
+                    padding-right:10px;
+                    border-right: 1px solid #EBEBED;
+                }
                 .offer__list{
                     display:flex;
                     flex-direction:column;
@@ -87,21 +135,26 @@ export default function MyPageView({students,offers,userId}){
                     padding:10px 0;
                 }
                 .offer__due{
+                    font-size:14px;
                     flex:1 1 30px;
                     text-align:center;
                 }
                 .offer__title{
+                    font-size:14px;
+                    font-weight:500;
                     flex:3 1 100px;
+                    padding-left:10px;
                 }
-                .offer__delete{
+                .offer__button{
                     flex;1 1 50px;
                     border:none;
                     background:none;
                     cursor: pointer;          
                     color:#686868;          
                     transition:opacity 0.3s;
+                    padding-right:10px;
                 }
-                .offer__delete:hover{
+                .offer__button:hover{
                     opacity:0.6;
                 }
                 .profile__img{

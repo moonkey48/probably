@@ -5,7 +5,12 @@ export default function Offer({offer,handleRouting}){
     return<li className={`${'offer__box'} ${open?'opened':''}`} onClick={()=>setOpen(!open)}>
         <section className='main'>
             <div className='request__box'>
-                <h3 className='request'>{offer.request}</h3>
+                {   
+                    offer.deadline?
+                    <h3 className='request' style={{color:'#DC6B03'}}>완료</h3>
+                    :
+                    <h3 className='request'>{offer.request}</h3>
+                }
             </div>
             <div className='title__box'>
                 <h3 className='title'>{offer.title}</h3>
