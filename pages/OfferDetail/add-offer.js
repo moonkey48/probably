@@ -14,6 +14,7 @@ export default function Offers({database,addOrCreateOffer,userId}){
     const conditionRef = useRef();
     const preferRef = useRef();
     const contactRef = useRef();
+    const dateRef = useRef();
 
     const switchOption = () =>{
         switch(selectRef.current.value){
@@ -50,6 +51,9 @@ export default function Offers({database,addOrCreateOffer,userId}){
         addOrCreateOffer(newOffer.id, newOffer);
         router.back();
     }
+    const handleDate = () =>{
+        console.log(dateRef.current.value);
+    }
 
     return<>
     <Seo title='Home'/>
@@ -85,11 +89,11 @@ export default function Offers({database,addOrCreateOffer,userId}){
                     </li>
                     <li className='detail__item'>
                         <h3 className='part'>내용</h3>
-                        <input ref={bodyRef} placeholder='내용'/>
+                        <textarea className='detail__textarea' wrap='hard' rows="10" cols="40" ref={bodyRef} placeholder='내용'/>
                     </li>
                     <li className='detail__item'>
                         <h3 className='part'>기한</h3>
-                        <input ref={dueRef} placeholder='기한'/>
+                        <input ref={dueRef} type='date' style={{width:'200px'}} />
                     </li>
                     <li className='detail__item'>
                         <h3 className='part'>조건</h3>
@@ -112,6 +116,20 @@ export default function Offers({database,addOrCreateOffer,userId}){
         </main>
     </div>
     <style jsx>{`
+    .detail__textarea{
+        border: none;
+        padding:5px 7px 5px 0;
+        resize: none;
+        width:400px;
+        font-family:'noto sans KR';
+        font-size: 16px;
+        line-height: 27px;
+        color: #686868;
+        width:100%;
+    }
+    .detail__textarea:focus{
+        outline:none;
+    }
     select{
         width:100px;
         height:30px;
@@ -194,9 +212,9 @@ export default function Offers({database,addOrCreateOffer,userId}){
         font-size: 16px;
         line-height: 27px;
         color: #686868;
+        width:100%;
         border:none;
         background:none;
-        width:100%;
     }
     input::placeholder{
         font-size: 16px;

@@ -30,7 +30,7 @@ export default function OfferDetail({offers}){
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>내용</h3>
-                            <p className='content'>{offers[key]?.body || '-'}</p>
+                            <pre className='content'>{offers[key]?.body || '-'}</pre>
                         </li>
                         <li className='detail__item'>
                             <h3 className='part'>기한</h3>
@@ -52,6 +52,9 @@ export default function OfferDetail({offers}){
                 </section>
             </main>
             <style jsx>{`
+                pre{
+                    margin:20px 0;
+                }
                 .container{
                     display:flex;
                     flex-direction: row;
@@ -104,6 +107,8 @@ export default function OfferDetail({offers}){
                 .content{
                     border-left: 1px solid #EBEBED;
                     padding-left:30px;
+                    font-family:'noto sans KR';
+                    font-size:14px;
                 }
                 .title{
                     border-left: 1px solid #EBEBED;

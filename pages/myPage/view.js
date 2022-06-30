@@ -88,7 +88,7 @@ export default function MyPageView({students,offers,userId,database}){
                                             <div className='offer__deadline' style={{color:'#DC6B03'}}>미완</div>
                                         }
                                         <div className='offer__title'>{offers[key].title}</div>
-                                        <div className='offer__due'>기한: {offers[key].due}</div>
+                                        <div className='offer__due'>{offers[key].due}</div>
                                         <button className='offer__button'
                                         onClick={()=>handleCompleteOffer(key)}
                                         >
